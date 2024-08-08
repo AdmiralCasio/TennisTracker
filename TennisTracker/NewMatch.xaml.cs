@@ -126,7 +126,9 @@ public partial class NewMatch : ContentPage
 
 	public async void GoToMain(object o, EventArgs e)
 	{
-        var navigationParameter = new ShellNavigationQueryParameters
+		_player1 = new Player(P1NameEntry.Text);
+		_player2 = new Player(P2NameEntry.Text);
+		var navigationParameter = new ShellNavigationQueryParameters
 		{
 			{ "match", new Match(_player1, _player2, _gameSetterValues[GameSetterIndex], _setSetterValues[SetSetterIndex], _service) }
 		};
