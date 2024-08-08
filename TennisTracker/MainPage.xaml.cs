@@ -174,7 +174,7 @@ namespace TennisTracker
 
                 if (CurrentMatch.SetWon)
                 {
-                    UpdateScoreDisplay(setScores[GetTotalSets() - 1], CurrentMatch.GameScores[GetTotalSets() - 1].Item1, CurrentMatch.GameScores[GetTotalSets() - 1].Item2);
+                    UpdateGameScoreDisplay(setScores[GetTotalSets() - 1], CurrentMatch.GameScores[GetTotalSets() - 1].Item1, CurrentMatch.GameScores[GetTotalSets() - 1].Item2);
 
                     if (button.Parent.Parent == P1Scorer)
                     {
@@ -219,7 +219,7 @@ namespace TennisTracker
 
                 if (CurrentMatch.SetWon)
                 {
-                    UpdateScoreDisplay(setScores[GetTotalSets() - 1], CurrentMatch.GameScores[GetTotalSets() - 1].Item1, CurrentMatch.GameScores[GetTotalSets() - 1].Item2);
+                    UpdateGameScoreDisplay(setScores[GetTotalSets() - 1], CurrentMatch.GameScores[GetTotalSets() - 1].Item1, CurrentMatch.GameScores[GetTotalSets() - 1].Item2);
 
                     if (button.Parent.Parent == P2Scorer)
                     {
@@ -264,7 +264,7 @@ namespace TennisTracker
             }
         }
 
-        private void UpdateScoreDisplay(ScoreDisplay scoreDisplay, int player1Score, int player2Score)
+        private void UpdateGameScoreDisplay(ScoreDisplay scoreDisplay, int player1Score, int player2Score)
         {
             if (CurrentMatch.NewGame)
             {
@@ -308,7 +308,7 @@ namespace TennisTracker
             if (CurrentMatch.NewGame)
             {
                 StopTimer();
-                UpdateScoreDisplay(setScores[GetTotalSets()], CurrentMatch.Player1.Games, CurrentMatch.Player2.Games);
+                UpdateGameScoreDisplay(setScores[GetTotalSets()], CurrentMatch.Player1.Games, CurrentMatch.Player2.Games);
                 UpdateScorers();
             }
         }
