@@ -30,6 +30,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build -c Release -f net8.0-android /p:AndroidSigningKeyStore=myapp.keystore /p:AndroidSigningKeyAlias="${{ secrets.SIGNING_KEY_ALIAS }}" /p:AndroidSigningKeyPass="${{ secrets.SIGNING_STORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.SIGNING_KEY_PASSWORD }}" --no-restore
+      run: dotnet build -c Release -f net8.0-android /p:AndroidSigningKeyStore=tennistracker.keystore /p:AndroidSigningKeyAlias="${{ secrets.SIGNING_KEY_ALIAS }}" /p:AndroidSigningKeyPass="${{ secrets.SIGNING_STORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.SIGNING_KEY_PASSWORD }}" --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
