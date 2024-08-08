@@ -191,6 +191,12 @@ namespace TennisTracker
                 CheckNewSet();
 
                 CheckMatchWon();
+
+                if (P1Fault.Text == "D. Fault" || P2Fault.Text == "D. Fault")
+                {
+                    ResetFault();
+                }
+                
             }
 
         }
@@ -236,6 +242,8 @@ namespace TennisTracker
                 CheckNewSet();
 
                 CheckMatchWon();
+
+                ResetFault();
 
             }
         }
@@ -338,6 +346,17 @@ namespace TennisTracker
             if (Stopwatch.IsRunning) Stopwatch.Stop();
         }
 
+        private void ResetFault()
+        {
+            if (P1Fault.Text == "D. Fault")
+            {
+                P1Fault.Text = "Fault";
+            }
+            if (P2Fault.Text == "D. Fault")
+            {
+               P2Fault.Text = "Fault";
+            }
+        }
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             CurrentMatch = (Match)query["match"];
