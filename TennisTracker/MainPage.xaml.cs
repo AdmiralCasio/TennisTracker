@@ -67,18 +67,30 @@ namespace TennisTracker
             });
 
             Debug.WriteLine(CurrentMatch.Service);
-            P1ScorerName.Text = CurrentMatch.Player1.Name;
-            P2ScorerName.Text = CurrentMatch.Player2.Name;
-            P2Name.Text = CurrentMatch.Player2.Name;
-            P1Name.Text = CurrentMatch.Player1.Name;
+            P1ScorerName.Text = newMatch.Player1.Name;
+            P2ScorerName.Text = newMatch.Player2.Name;
+            P2Name.Text = newMatch.Player2.Name;
+            P1Name.Text = newMatch.Player1.Name;
             GameTitle.Text = $"{newMatch.Player1.Name} vs {newMatch.Player2.Name}";
-            double maxWidth = Math.Max(P2Name.Width, P1Name.Width);
-            P2Name.WidthRequest = maxWidth;
-            P1Name.WidthRequest = maxWidth;
-            P1ServeMarker.Stroke = CurrentMatch.Service == 0 ? Colors.Green : Colors.White;
-            P2ServeMarker.Stroke = CurrentMatch.Service == 1 ? Colors.Green : Colors.White;
-            P1ServiceControls.Opacity = CurrentMatch.Service == 0 ? 1 : 0;
-            P2ServiceControls.Opacity = CurrentMatch.Service == 1 ? 1 : 0;
+            double maxWidth = Math.Max(newMatch.Player1.Name.Length, newMatch.Player2.Name.Length);
+            P1Name.WidthRequest = Math.Max(maxWidth * 7.25 + 20, 100);
+            P2Name.WidthRequest = Math.Max(maxWidth * 7.25 + 20, 100);
+            P1ServeMarker.Stroke = newMatch.Service == 0 ? Colors.Green : Colors.White;
+            P2ServeMarker.Stroke = newMatch.Service == 1 ? Colors.Green : Colors.White;
+            P1ServiceControls.Opacity = newMatch.Service == 0 ? 1 : 0;
+            P2ServiceControls.Opacity = newMatch.Service == 1 ? 1 : 0;
+            P1Set1.FontAttributes = FontAttributes.None;
+            P2Set1.FontAttributes = FontAttributes.None;
+            UpdateScoreDisplay((P1Set1, P2Set1), newMatch.Player1, newMatch.Player2);
+            UpdateScoreDisplay((P1Score, P2Score), newMatch.Player1, newMatch.Player2);
+            for (int i = 3; i < P1ScoreCard.Children.Count - 1; i++)
+            {
+                P1ScoreCard.Children.RemoveAt(i);
+            }
+            for (int i = 3; i < P2ScoreCard.Children.Count-1; i++)
+            {
+                P2ScoreCard.Children.RemoveAt(i);
+            }
             setScores = new ScoreDisplay[newMatch.Sets*2];
             setScores[0] = new ScoreDisplay((Border)P1Set1.Parent, (Border)P2Set1.Parent, P1Set1, P2Set1);
             for (int i = 1; i < setScores.Length; i++)
