@@ -30,6 +30,12 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build -c Release -f net8.0-android /p:AndroidSigningKeyStore=tennistracker.keystore /p:AndroidSigningKeyAlias="${{ secrets.SIGNING_KEY_ALIAS }}" /p:AndroidSigningKeyPass="${{ secrets.SIGNING_STORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.SIGNING_KEY_PASSWORD }}" --no-restore
+      run: dotnet build TennisTracker/TennisTracker.csproj -c Release -f net8.0-android /p:AndroidSigningKeyStore=tennistracker.keystore /p:AndroidSigningKeyAlias="${{ secrets.SIGNING_KEY_ALIAS }}" /p:AndroidSigningKeyPass="${{ secrets.SIGNING_STORE_PASSWORD }}" /p:AndroidSigningStorePass="${{ secrets.SIGNING_KEY_PASSWORD }}" --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: Store Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-results-android
+        path: TennisTracker/bin/Release/net8.0-android
+      
