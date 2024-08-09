@@ -44,7 +44,7 @@
                     <Label x:Name="P1ScorerName" HorizontalOptions="Center">Name 1</Label>
                     <HorizontalStackLayout x:Name="P1ServiceControls" HorizontalOptions="CenterAndExpand" MinimumHeightRequest="0" MinimumWidthRequest="0" Spacing="1">
                         <Button TextColor="White" Text="Ace" HorizontalOptions="Start" BackgroundColor="#390E4E" Clicked="Point"></Button>
-                        <Button TextColor="White" BackgroundColor="#390E4E" HorizontalOptions="EndAndExpand" Text="Fault" Clicked="Fault"></Button>
+                        <Button x:Name="P1Fault" TextColor="White" BackgroundColor="#390E4E" HorizontalOptions="EndAndExpand" Text="Fault" Clicked="Fault"></Button>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout HorizontalOptions="Center">
                         <Button TextColor="White" BackgroundColor="#390E4E" Text="Winner" Clicked="Point" HorizontalOptions="Center"></Button>
@@ -58,7 +58,7 @@
                     <Label x:Name="P2ScorerName" HorizontalOptions="Center">Name 1</Label>
                     <HorizontalStackLayout x:Name="P2ServiceControls" HorizontalOptions="CenterAndExpand" MinimumHeightRequest="0" MinimumWidthRequest="0" Spacing="1">
                         <Button TextColor="White" BackgroundColor="#390E4E" Text="Ace" HorizontalOptions="Start" Visual="Default" Clicked="Point"></Button>
-                        <Button TextColor="White" BackgroundColor="#390E4E" HorizontalOptions="EndAndExpand" Text="Fault" Clicked="Fault"></Button>
+                        <Button x:Name="P2Fault" TextColor="White" BackgroundColor="#390E4E" HorizontalOptions="EndAndExpand" Text="Fault" Clicked="Fault"></Button>
                     </HorizontalStackLayout>
                     <HorizontalStackLayout HorizontalOptions="Center">
                         <Button TextColor="White" BackgroundColor="#390E4E" Text="Winner" Clicked="Point"></Button>
