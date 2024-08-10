@@ -9,8 +9,6 @@
         public int Sets { get; private set; }
         public int CurrentSet { get; private set; }
 
-        public bool Deuce { get; private set; } = false;
-
         public int Service { get; private set; } = 0;
 
         public bool NewGame { get; private set; } = true;
@@ -22,6 +20,8 @@
 
         public List<(int, int)> GameScores { get; private set; } = new();
 
+        public IMatchState matchState { get; private set; }
+
         public Match(Player player1, Player player2, int games, int sets, int service = 0)
         {
             this.Player1 = player1;
@@ -29,54 +29,21 @@
             this.Games = games;
             this.Sets = sets;
             this.Service = service;
+            this.matchState = new NormalState(this);
         }
 
         public void Point(Player player, PointType p)
         {
             NewPoint();
-
-            if (Deuce)
-            {
-                Loss(player, player == Player1 ? Player2 : Player1, p);
-            }
-            else
-            {
-                player.WinPoint(p);
-                IsDeuce();
-            }
-
-            CheckGameWin(player, player == Player1 ? Player2 : Player1);
+            matchState.Point(player, p);
+            matchState.CheckGameWin(player, player == Player1 ? Player2 : Player1);
         }
 
         public void Loss(Player playerWin, Player playerLose, PointType p)
         {
             NewPoint();
-            if (!Deuce)
-            {
-                playerWin.WinPoint(p);
-                playerLose.LosePoint(p);
-                IsDeuce();
-                CheckGameWin(playerWin, playerLose);
-            }
-            else
-            {
-                if (playerWin.GamePoints == 4)
-                {
-                    playerWin.WinPoint(p);
-                    playerLose.LosePoint(p);
-                    GameWin(playerWin, playerLose);
-                }
-                else if (playerWin.GamePoints == 3 && playerLose.GamePoints == 3)
-                {
-                    playerWin.WinPoint(p);
-                }
-                else if (playerWin.GamePoints == 3 && playerLose.GamePoints == 4)
-                {
-                    playerLose.LosePointDeuce(p);
-                    playerWin.WinPointDeuce(p);
-                }
-            }
-            
+            matchState.Loss(playerWin, playerLose, p);
+            matchState.CheckGameWin(playerWin, playerLose);
         }
 
         public void ChangeService()
@@ -89,19 +56,15 @@
             playerWin.WinGame();
             ResetGamePoints();
             NewGame = true;
-            Deuce = false;
-            CheckSetWin(playerWin);
+            CheckSetWin(playerWin, playerLose);
             CheckMatchWin();
             if (MatchWon) Winner = playerWin;
             ChangeService();
         }
 
-        private void CheckGameWin(Player playerWin, Player playerLose)
+        public void CheckGameWin(Player playerWin, Player playerLose)
         {
-            if (!Deuce && playerWin.GamePoints == 4)
-            {
-                GameWin(playerWin, playerLose);
-            }
+            matchState.CheckGameWin(playerWin, playerLose);
         }
 
         private void CheckMatchWin()
@@ -112,12 +75,31 @@
             }
         }
 
-        private void CheckSetWin(Player playerWin)
+        private void CheckSetWin(Player playerWin, Player playerLose)
         {
-            if (playerWin.Games == Games)
+            if (matchState.GetType() == typeof(TieBreakState))
             {
                 GameScores.Add((Player1.Games, Player2.Games));
                 playerWin.WinSet();
+                playerLose.ResetGames();
+                if (Sets > playerWin.Sets)
+                {
+                    NewSet = true;
+                }
+                SetWon = true;
+                ChangeState(new NormalState(this));
+            }
+
+            if (playerWin.Games == Games && playerLose.Games == Games)
+            {
+                ChangeState(new TieBreakState(this));
+            }
+            
+            if (playerWin.Games >= Games && playerWin.Games - playerLose.Games >= 2)
+            {
+                GameScores.Add((Player1.Games, Player2.Games));
+                playerWin.WinSet();
+                playerLose.ResetGames();
                 if (Sets > playerWin.Sets)
                 {
                     NewSet = true;
@@ -126,12 +108,9 @@
             }
         }
 
-        private void IsDeuce()
+        public void ChangeState(IMatchState matchState)
         {
-            if (!Deuce && Player1.GamePoints == 3 && Player2.GamePoints == 3)
-            {
-                Deuce = true;
-            }
+            this.matchState = matchState;
         }
 
         private void ResetGamePoints()

@@ -54,7 +54,7 @@ namespace TennisTracker
         public void NewMatch(Match newMatch)
         {
             Stopwatch.Reset();
-            Application.Current.Dispatcher.StartTimer(TimeSpan.FromMilliseconds(100), () =>
+            if (Application.Current != null) Application.Current.Dispatcher.StartTimer(TimeSpan.FromMilliseconds(100), () =>
             {
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
@@ -260,15 +260,23 @@ namespace TennisTracker
 
         private void UpdateScoreDisplay((Label, Label) scoreDisplay, Player player, Player otherPlayer)
         {
-            scoreDisplay.Item1.Text = PointMappings[player.GamePoints];
-
-            if (player.GamePoints == 4)
+            if (_currentMatch.matchState.GetType() == typeof(TieBreakState))
             {
-                scoreDisplay.Item2.Text = "";
+                scoreDisplay.Item1.Text = player.GamePoints.ToString();
+                scoreDisplay.Item2.Text = otherPlayer.GamePoints.ToString();
             }
             else
             {
-                scoreDisplay.Item2.Text = PointMappings[otherPlayer.GamePoints];
+                scoreDisplay.Item1.Text = PointMappings[player.GamePoints];
+
+                if (player.GamePoints == 4)
+                {
+                    scoreDisplay.Item2.Text = "";
+                }
+                else
+                {
+                    scoreDisplay.Item2.Text = PointMappings[otherPlayer.GamePoints];
+                }
             }
         }
 
