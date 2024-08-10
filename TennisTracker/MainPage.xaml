@@ -17,10 +17,10 @@
                     </Border>
                     <Border StrokeThickness="4" StrokeLineJoin="Round" StrokeLineCap="Round" MinimumWidthRequest="4" x:Name="P1ServeMarker"></Border>
                     <Border StrokeThickness="2" StrokeLineJoin="Round" StrokeLineCap="Round" Stroke="#FFC0C0C0" MinimumHeightRequest="30" MinimumWidthRequest="30" BackgroundColor="#FFC0C0C0">
-                        <Label Padding="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="P1Set1" TextColor="Black" >0</Label>
+                        <Label Padding="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="P1Set1" TextColor="Black" Text="0"></Label>
                     </Border>
                     <Border StrokeThickness="2" StrokeLineJoin="Round" StrokeLineCap="Round" Stroke="#390E4E" MinimumHeightRequest="30" MinimumWidthRequest="30" BackgroundColor="#390E4E">
-                        <Label Padding="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="P1Score" TextColor="#FCFCFC">0</Label>
+                        <Label Padding="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="P1Score" TextColor="#FCFCFC" Text="0"></Label>
                     </Border>
                     
 
@@ -31,10 +31,10 @@
                     </Border>
                     <Border StrokeThickness="4" StrokeLineJoin="Round" StrokeLineCap="Round" MinimumWidthRequest="4" x:Name="P2ServeMarker"></Border>
                     <Border StrokeThickness="2" StrokeLineJoin="Round" StrokeLineCap="Round" Stroke="#FFC0C0C0" MinimumHeightRequest="30" MinimumWidthRequest="30"  BackgroundColor="#FFC0C0C0">
-                        <Label Padding="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="P2Set1" TextColor="Black" >0</Label>
+                        <Label Padding="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="P2Set1" TextColor="Black" Text="0"></Label>
                     </Border>
                     <Border StrokeThickness="2" StrokeLineJoin="Round" StrokeLineCap="Round" Stroke="#390E4E" MinimumHeightRequest="30" MinimumWidthRequest="30"  BackgroundColor="#390E4E">
-                        <Label Padding="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="P2Score" TextColor="#FCFCFC" >0</Label>
+                        <Label Padding="2" HorizontalOptions="Center" VerticalOptions="Center" x:Name="P2Score" TextColor="#FCFCFC" Text="0"></Label>
                     </Border>
                 </HorizontalStackLayout>
             </VerticalStackLayout>

@@ -69,7 +69,7 @@
 
         private void CheckMatchWin()
         {
-            if (Player1.Sets == Sets || Player2.Sets == Sets)
+            if (Player1.Sets > Sets / 2 || Player2.Sets > Sets / 2)
             {
                 MatchWon = true;
             }
@@ -82,7 +82,7 @@
                 GameScores.Add((Player1.Games, Player2.Games));
                 playerWin.WinSet();
                 playerLose.ResetGames();
-                if (Sets > playerWin.Sets)
+                if (Sets / 2 >= playerWin.Sets)
                 {
                     NewSet = true;
                 }
@@ -100,7 +100,7 @@
                 GameScores.Add((Player1.Games, Player2.Games));
                 playerWin.WinSet();
                 playerLose.ResetGames();
-                if (Sets > playerWin.Sets)
+                if (Sets / 2 >= playerWin.Sets)
                 {
                     NewSet = true;
                 }

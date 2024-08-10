@@ -38,7 +38,7 @@ namespace TennisTracker
             { 4, "AD" }
         };
         
-        private ScoreDisplay[] setScores;
+        private ScoreDisplay[]? setScores;
 
         private Stopwatch Stopwatch = new();
 
@@ -83,15 +83,15 @@ namespace TennisTracker
             P2Set1.FontAttributes = FontAttributes.None;
             UpdateScoreDisplay((P1Set1, P2Set1), newMatch.Player1, newMatch.Player2);
             UpdateScoreDisplay((P1Score, P2Score), newMatch.Player1, newMatch.Player2);
-            for (int i = 3; i < P1ScoreCard.Children.Count - 1; i++)
+            if (setScores != null)
             {
-                P1ScoreCard.Children.RemoveAt(i);
+                for (int i = 1; i < setScores.Length; i++)
+                {
+                    P1ScoreCard.Remove(setScores[i].Border1);
+                    P2ScoreCard.Remove(setScores[i].Border2);
+                }
             }
-            for (int i = 3; i < P2ScoreCard.Children.Count-1; i++)
-            {
-                P2ScoreCard.Children.RemoveAt(i);
-            }
-            setScores = new ScoreDisplay[newMatch.Sets*2];
+            setScores = new ScoreDisplay[newMatch.Sets];
             setScores[0] = new ScoreDisplay((Border)P1Set1.Parent, (Border)P2Set1.Parent, P1Set1, P2Set1);
             for (int i = 1; i < setScores.Length; i++)
             {
@@ -100,8 +100,8 @@ namespace TennisTracker
                 P1Border.StrokeLineJoin = Microsoft.Maui.Controls.Shapes.PenLineJoin.Round;
                 P1Border.StrokeLineCap = Microsoft.Maui.Controls.Shapes.PenLineCap.Round;
                 P1Border.Stroke = new SolidColorBrush(Color.FromArgb("#FFC0C0C0"));
-                P1Border.MinimumHeightRequest = 25;
-                P1Border.MinimumWidthRequest = 25;
+                P1Border.MinimumHeightRequest = 30;
+                P1Border.MinimumWidthRequest = 30;
                 P1Border.BackgroundColor = Color.FromArgb("#FFC0C0C0");
 
                 var P2Border = new Border();
@@ -109,8 +109,8 @@ namespace TennisTracker
                 P2Border.StrokeLineJoin = Microsoft.Maui.Controls.Shapes.PenLineJoin.Round;
                 P2Border.StrokeLineCap = Microsoft.Maui.Controls.Shapes.PenLineCap.Round;
                 P2Border.Stroke = new SolidColorBrush(Color.FromArgb("#FFC0C0C0"));
-                P2Border.MinimumHeightRequest = 25;
-                P2Border.MinimumWidthRequest = 25;
+                P2Border.MinimumHeightRequest = 30;
+                P2Border.MinimumWidthRequest = 30;
                 P2Border.BackgroundColor = Color.FromArgb("#FFC0C0C0");
 
 
