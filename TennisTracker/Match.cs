@@ -72,6 +72,7 @@
             if (Player1.Sets == Sets || Player2.Sets == Sets)
             {
                 MatchWon = true;
+                NewGame = false;
             }
         }
 
